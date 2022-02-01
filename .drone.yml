@@ -3,11 +3,6 @@ name: default
 
 # Pipeline for putting cloudformation files into S3 for nested stacks
 steps:
-  - name: build
-    image: eignhpants/image-builder
-    commands:
-      - ./build/build.sh
-
   - name: docker push
     image: plugins/docker
     settings:
