@@ -1,0 +1,20 @@
+kind: pipeline
+name: default
+
+# Pipeline for putting cloudformation files into S3 for nested stacks
+steps:
+  - name: build
+    image: eignhpants/go-image-builder
+    commands:
+      - ./build/build.sh
+
+  - name: docker push
+    image: plugins/docker
+    settings:
+      repo: eignhpants/go-image-builder
+      username:
+        from_secret: dh_user_name
+      password:
+        from_secret: dh_pw
+    publish:
+      image: eignhpants/go-image-builder
