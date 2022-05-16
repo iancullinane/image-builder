@@ -29,7 +29,7 @@ RUN mkdir -p /root/go/src \
   # update certs
   && update-ca-certificates -f \
 
-  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
+  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -y | sh
 
 # Set working path
 WORKDIR /root/go
