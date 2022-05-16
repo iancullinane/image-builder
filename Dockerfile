@@ -5,7 +5,8 @@ ENV HOME=/root \
   GOPATH=/root/go \
   PATH=/root/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
   GO_VERSION=1.16.6 \
-  DEBIAN_FRONTEND=noninteractive
+  DEBIAN_FRONTEND=noninteractive \
+  rust_version=2018
 
 RUN mkdir -p /root/go/src \
   # Update 
@@ -26,7 +27,9 @@ RUN mkdir -p /root/go/src \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   # update certs
-  && update-ca-certificates -f
+  && update-ca-certificates -f \
+
+  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Set working path
 WORKDIR /root/go
