@@ -9,23 +9,16 @@ ENV HOME=/root \
   rust_version=2018 
 
 RUN mkdir -p /root/go/src 
-RUN apt-get -y update && apt-get -y install ca-certificates build-essential  git subversion  curl sudo wget zip  apt-transport-https \
-  # get go
-  && wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - 
-  # get nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
-  export NVM_DIR="$HOME/.nvm" \
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-  && nvm install 18 && nvm use 18 \
-  # install gatsby for website builds
-  && npm install -g gatsby-cli \
-  # golang issue at: https://github.com/golang/go/issues/9344
-  # https://github.com/GoogleCloudPlatform/kubernetes/commit/0a538132cf00f105489c0b8205d437b48688a7e1
-  # https://github.com/aledbf/deis/commit/7c4fc31dc8565b7f992ac5121f40eecb63193c1a
-  #
-  # Any builds will need -installsuffix cgo to take advantage of static builds, but will not need to rebuild
-  # the standard library any longer
-  # TODO: I think that installsuffix is no longer necessary and was a temporary hack for a go tool problem.
+RUN apt-get -y update && apt-get -y install ca-certificates build-essential nodejs git subversion  curl sudo wget zip  apt-transport-https 
+
+# golang issue at: https://github.com/golang/go/issues/9344
+# https://github.com/GoogleCloudPlatform/kubernetes/commit/0a538132cf00f105489c0b8205d437b48688a7e1
+# https://github.com/aledbf/deis/commit/7c4fc31dc8565b7f992ac5121f40eecb63193c1a
+#
+# Any builds will need -installsuffix cgo to take advantage of static builds, but will not need to rebuild
+# the standard library any longer
+# TODO: I think that installsuffix is no longer necessary and was a temporary hack for a go tool problem.
+RUN wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - \
   && CGO_ENABLED=0 go install -a -installsuffix cgo std \
   && go get golang.org/x/tools/cmd/goimports \
   # Clean apt, reduce image size
