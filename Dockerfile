@@ -27,7 +27,7 @@ RUN wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.ta
   # update certs
   && update-ca-certificates -f 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh 
-
+RUN npm install -g gatsby-cli
 # Set working path
 WORKDIR /root/go
 
