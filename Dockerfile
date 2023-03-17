@@ -10,7 +10,7 @@ ENV HOME=/root \
 
 RUN mkdir -p /root/go/src \
   # Update 
-  && apt-get update && apt-get install ca-certificates build-essential  git subversion  curl sudo wget zip  apt-transport-https \
+  && apt-get -y update && apt-get -y install ca-certificates build-essential  git subversion  curl sudo wget zip  apt-transport-https \
   # get go
   && wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - \
   # get nvm
