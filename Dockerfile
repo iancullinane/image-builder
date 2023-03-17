@@ -8,13 +8,12 @@ ENV HOME=/root \
   DEBIAN_FRONTEND=noninteractive \
   rust_version=2018 
 
-RUN mkdir -p /root/go/src \
-  # Update 
-  && apt-get -y update && apt-get -y install ca-certificates build-essential  git subversion  curl sudo wget zip  apt-transport-https \
+RUN mkdir -p /root/go/src 
+RUN apt-get -y update && apt-get -y install ca-certificates build-essential  git subversion  curl sudo wget zip  apt-transport-https \
   # get go
-  && wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - \
+  && wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - 
   # get nvm
-  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
   export NVM_DIR="$HOME/.nvm" \
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
   && nvm install 18 && nvm use 18 \
@@ -33,9 +32,8 @@ RUN mkdir -p /root/go/src \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   # update certs
-  && update-ca-certificates -f \
-
-  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh | yes
+  && update-ca-certificates -f 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh | yes
 
 # Set working path
 WORKDIR /root/go
