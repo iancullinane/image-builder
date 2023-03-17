@@ -15,6 +15,8 @@ RUN mkdir -p /root/go/src \
   && wget -qO- https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - \
   # get nvm
   && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+  export NVM_DIR="$HOME/.nvm" \
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
   && nvm install 18 && nvm use 18 \
   # install gatsby for website builds
   && npm install -g gatsby-cli \
