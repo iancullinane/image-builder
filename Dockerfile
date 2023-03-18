@@ -16,7 +16,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
   apt-get install -y nodejs \
   build-essential && \
   node --version && \ 
-  npm --version
+  npm --version \
+  npm install -g gatsby gatsby-cli
 # golang issue at: https://github.com/golang/go/issues/9344
 # https://github.com/GoogleCloudPlatform/kubernetes/commit/0a538132cf00f105489c0b8205d437b48688a7e1
 # https://github.com/aledbf/deis/commit/7c4fc31dc8565b7f992ac5121f40eecb63193c1a
