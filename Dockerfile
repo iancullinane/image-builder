@@ -9,8 +9,14 @@ ENV HOME=/root \
   rust_version=2018 
 
 RUN mkdir -p /root/go/src 
-RUN apt-get -y update && apt-get -y install ca-certificates build-essential nodejs npm git subversion  curl sudo wget zip  apt-transport-https 
+RUN apt-get -y update && apt-get -y install ca-certificates build-essential git subversion curl sudo wget zip  apt-transport-https 
 
+
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
+  apt-get install -y nodejs \
+  build-essential && \
+  node --version && \ 
+  npm --version
 # golang issue at: https://github.com/golang/go/issues/9344
 # https://github.com/GoogleCloudPlatform/kubernetes/commit/0a538132cf00f105489c0b8205d437b48688a7e1
 # https://github.com/aledbf/deis/commit/7c4fc31dc8565b7f992ac5121f40eecb63193c1a
